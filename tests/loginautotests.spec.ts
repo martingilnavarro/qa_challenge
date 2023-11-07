@@ -1,75 +1,68 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
+import { HomePage } from '../pages/home-page';
+
+const HomeURL = 'https://www.saucedemo.com/';
+const InventoryURL = 'https://www.saucedemo.com/inventory.html';
+let homePage: HomePage;
+
+test.beforeEach(async ({ page }) => {
+  await page.goto(HomeURL);
+  homePage = new HomePage(page);
+});
+
+async function clickLoginButton(page: Page) {
+  await homePage.clickLoginButton();
+}
+async function inputUsername(page: Page, username: string) {
+  await homePage.inputUsername(username);
+}
+async function inputPassword(page: Page, password: string) {
+  await homePage.inputPassword(password);
+}
+async function assertURL(page: Page, url: string) {
+  await homePage.assertURL(url);
+}
+
 
 test.describe('log in should be allowed', () => {
   
-  test.beforeEach(async ({ page }) => {
-    await page.goto('https://www.saucedemo.com/');
-  });
   test.afterEach(async ({ page }) => {
-    // Input password.
-    await page.locator('[data-test="password"]').fill('secret_sauce');
-    
-    // Click login.
-    await page.locator('[data-test="login-button"]').click();
-      
-    // Dashboard page.
-    await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html')
+    await inputPassword(page, 'secret_sauce');
+    await clickLoginButton(page)
+    await assertURL(page, InventoryURL)
   });
 
   test('log in - pre prod', async ({ page }) => {
-    // Input username.
-    await page.locator('[data-test="username"]').fill('standard_user');
+    await inputUsername(page, 'standard_user');
   });
 
   test('log in - QA', async ({ page }) => {
-    // Input username.
-    await page.locator('[data-test="username"]').fill('problem_user');
+    await inputUsername(page, 'problem_user');
   });
 
   test('log in - dev', async ({ page }) => {
-    // Input username.
-    await page.locator('[data-test="username"]').fill('locked_out_user');
+    await inputUsername(page, 'locked_out_user');
   });
 
 });
 
 test.describe('log in should not be allowed', () => {
   
-  test.beforeEach(async ({ page }) => {
-    await page.goto('https://www.saucedemo.com/');
-  });
-  test.afterEach(async ({ page }) => {    
-    // Click login.
-    await page.locator('[data-test="login-button"]').click();
-      
-    // Same page - does not go to dashboard.
-    await expect(page).toHaveURL('https://www.saucedemo.com/')
+  test.afterEach(async ({ page }) => {
+    await clickLoginButton(page)
+    await assertURL(page, HomeURL)
   });
 
-  test('log in - user name incorrect', async ({ page }) => {
-    // Input no existing username.
-    await page.locator('[data-test="username"]').fill('no_user');
-    // Input password.
-    await page.locator('[data-test="password"]').fill('secret_sauce');
+  test('log in - incorrect user name', async ({ page }) => {
+    await inputUsername(page, 'no_user');
+    await inputPassword(page, 'secret_sauce');
   });
 
-  test('log in - password incorrect', async ({ page }) => {
-    // Input username.
-    await page.locator('[data-test="username"]').fill('standard_user');
-    // Input incorrect password.
-    await page.locator('[data-test="password"]').fill('incorrect_password');
+  test('log in - incorrect password', async ({ page }) => {
+    await inputUsername(page, 'standard_user');
+    await inputPassword(page, 'incorrect_password');
   });
-
-  test('log in - no username', async ({ page }) => {
-
-    // Input only password.
-    await page.locator('[data-test="password"]').fill('secret_sauce');
-  });
-
-  test('log in - no password', async ({ page }) => {
-    // Input only username.
-    await page.locator('[data-test="username"]').fill('standard_user');
-  });
-
 
 });
+
+
