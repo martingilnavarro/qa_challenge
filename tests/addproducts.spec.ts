@@ -19,5 +19,28 @@ test.beforeEach(async ({ page }) => {
   await homePage.clickLoginButton();
 });
 
+async function addBackpack(page: Page) {
+    await inventoryPage.addBackpack();
+}
+async function addBikeLight(page: Page) {
+    await inventoryPage.addBikeLight();
+}
+  async function clickCart(page: Page) {
+    await inventoryPage.clickCart();
+}
+
+test.describe('add products', () => {
+  
+    
+    test('add backpack and bike light', async ({ page }) => {
+      await addBackpack(page);
+      await addBikeLight(page);
+      await clickCart(page);
+    });
+  
+
+  
+  });
+
 
 

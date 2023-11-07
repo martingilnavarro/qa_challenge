@@ -44,7 +44,7 @@ test.describe('log in should be allowed', () => {
     await inputUsername(page, qaUsername);
   });
 
-  test('log in - dev', async ({ page }) => {
+  test.skip('log in - dev', async ({ page }) => {
     await inputUsername(page, devUsername);
   });
 

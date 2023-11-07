@@ -33,7 +33,7 @@ export class InventoryPage {
         this.getCart = page.locator('#shopping_cart_container a');
     }
 
-    async addBackPack() {
+    async addBackpack() {
         await this.getAddBackpack.click();
     }
     async addBikeLight() {
@@ -52,7 +52,7 @@ export class InventoryPage {
         await this.getAddRedShirt.click();
     }
 
-    async removeBackPack() {
+    async removeBackpack() {
         await this.getRemoveBackpack.click();
     }
     async removeBikeLight() {
@@ -72,7 +72,7 @@ export class InventoryPage {
     }
 
     async addAll() {
-        this.addBackPack();
+        this.addBackpack();
         this.addBikeLight();
         this.addBoltShirt();
         this.addJacket();
