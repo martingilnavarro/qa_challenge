@@ -25,8 +25,16 @@ async function addBackpack(page: Page) {
 async function addBikeLight(page: Page) {
     await inventoryPage.addBikeLight();
 }
-  async function clickCart(page: Page) {
+async function addAllProducts(page: Page) {
+  await inventoryPage.addAllProducts();
+}
+
+async function clickCart(page: Page) {
     await inventoryPage.clickCart();
+}
+
+async function assertNumberItems(page: Page, numberItems: string) {
+  await inventoryPage.assertNumberItems(numberItems);
 }
 
 test.describe('add products', () => {
@@ -35,6 +43,13 @@ test.describe('add products', () => {
     test('add backpack and bike light', async ({ page }) => {
       await addBackpack(page);
       await addBikeLight(page);
+      await assertNumberItems(page,'2')
+      await clickCart(page);
+    });
+
+    test('add all products', async ({ page }) => {
+      await addAllProducts(page);
+      await assertNumberItems(page,'6')
       await clickCart(page);
     });
   

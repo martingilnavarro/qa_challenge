@@ -71,17 +71,21 @@ export class InventoryPage {
         await this.getRemoveRedShirt.click();
     }
 
-    async addAll() {
-        this.addBackpack();
-        this.addBikeLight();
-        this.addBoltShirt();
-        this.addJacket();
-        this.addOnesie();
-        this.addRedShirt();
+    async addAllProducts() {
+        await this.getAddBackpack.click();
+        await this.getAddBikeLight.click();
+        await this.getAddBoltShirt.click();
+        await this.getAddJacket.click();
+        await this.getAddOnesie.click();
+        await this.getAddRedShirt.click();
     }
     
     async clickCart() {
         await this.getCart.click();
+    }
+
+    async assertNumberItems(numberItems: string) {
+        await expect (this.getCart).toHaveText(numberItems)  
     }
 
 
