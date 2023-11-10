@@ -2,90 +2,90 @@ import { type Locator, type Page, expect } from '@playwright/test';
 
 export class InventoryPage {
     readonly page: Page;
-    readonly getAddBackpack: Locator;
-    readonly getRemoveBackpack: Locator;
-    readonly getAddBikeLight: Locator;
-    readonly getRemoveBikeLight: Locator;
-    readonly getAddBoltShirt: Locator;
-    readonly getRemoveBoltShirt: Locator;
-    readonly getAddJacket: Locator;
-    readonly getRemoveJacket: Locator;
-    readonly getAddOnesie: Locator;
-    readonly getRemoveOnesie: Locator;
-    readonly getAddRedShirt: Locator;
-    readonly getRemoveRedShirt: Locator;
-    readonly getCart: Locator;
+    readonly addBackpackButton: Locator;
+    readonly removeBackpackButton: Locator;
+    readonly addBikeLightButton: Locator;
+    readonly removeBikeLightButton: Locator;
+    readonly addBoltShirtButton: Locator;
+    readonly removeBoltShirtButton: Locator;
+    readonly addJacketButton: Locator;
+    readonly removeJacketButton: Locator;
+    readonly addOnesieButton: Locator;
+    readonly removeOnesieButton: Locator;
+    readonly addRedShirtButton: Locator;
+    readonly removeRedShirtButton: Locator;
+    readonly Cart: Locator;
 
     constructor(page: Page) {
         this.page = page;
-        this.getAddBackpack = page.locator('[data-test="add-to-cart-sauce-labs-backpack"]');
-        this.getRemoveBackpack = page.locator('[data-test="remove-sauce-labs-backpack"]');
-        this.getAddBikeLight = page.locator('[data-test="add-to-cart-sauce-labs-bike-light"]');
-        this.getRemoveBikeLight = page.locator('[data-test="remove-sauce-labs-bike-light"]');
-        this.getAddBoltShirt = page.locator('[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]');
-        this.getRemoveBoltShirt = page.locator('[data-test="remove-sauce-labs-bolt-t-shirt"]');
-        this.getAddJacket = page.locator('[data-test="add-to-cart-sauce-labs-fleece-jacket"]');
-        this.getRemoveJacket = page.locator('[data-test="remove-sauce-labs-fleece-jacket"]');
-        this.getAddOnesie = page.locator('[data-test="add-to-cart-sauce-labs-onesie"]');
-        this.getRemoveOnesie = page.locator('[data-test="remove-sauce-labs-onesie"]');
-        this.getAddRedShirt= page.locator('[data-test="add-to-cart-test.allthethings()-t-shirt-(red)"]');
-        this.getRemoveRedShirt = page.locator('[data-test="remove-test.allthethings()-t-shirt-(red)"]');
-        this.getCart = page.locator('#shopping_cart_container a');
+        this.addBackpackButton = page.locator('[data-test="add-to-cart-sauce-labs-backpack"]');
+        this.removeBackpackButton = page.locator('[data-test="remove-sauce-labs-backpack"]');
+        this.addBikeLightButton = page.locator('[data-test="add-to-cart-sauce-labs-bike-light"]');
+        this.removeBikeLightButton = page.locator('[data-test="remove-sauce-labs-bike-light"]');
+        this.addBoltShirtButton = page.locator('[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]');
+        this.removeBoltShirtButton = page.locator('[data-test="remove-sauce-labs-bolt-t-shirt"]');
+        this.addJacketButton = page.locator('[data-test="add-to-cart-sauce-labs-fleece-jacket"]');
+        this.removeJacketButton = page.locator('[data-test="remove-sauce-labs-fleece-jacket"]');
+        this.addOnesieButton = page.locator('[data-test="add-to-cart-sauce-labs-onesie"]');
+        this.removeOnesieButton = page.locator('[data-test="remove-sauce-labs-onesie"]');
+        this.addRedShirtButton= page.locator('[data-test="add-to-cart-test.allthethings()-t-shirt-(red)"]');
+        this.removeRedShirtButton = page.locator('[data-test="remove-test.allthethings()-t-shirt-(red)"]');
+        this.Cart = page.locator('#shopping_cart_container a');
     }
 
     async addBackpack() {
-        await this.getAddBackpack.click();
+        await this.addBackpackButton.click();
     }
     async addBikeLight() {
-        await this.getAddBikeLight.click();
+        await this.addBikeLightButton.click();
     }
     async addBoltShirt() {
-        await this.getAddBoltShirt.click();
+        await this.addBoltShirtButton.click();
     }
     async addJacket() {
-        await this.getAddJacket.click();
+        await this.addJacketButton.click();
     }
     async addOnesie() {
-        await this.getAddOnesie.click();
+        await this.addOnesieButton.click();
     }
     async addRedShirt() {
-        await this.getAddRedShirt.click();
+        await this.addRedShirtButton.click();
     }
 
     async removeBackpack() {
-        await this.getRemoveBackpack.click();
+        await this.removeBackpackButton.click();
     }
     async removeBikeLight() {
-        await this.getRemoveBikeLight.click();
+        await this.removeBikeLightButton.click();
     }
     async removeBoltShirt() {
-        await this.getRemoveBoltShirt.click();
+        await this.removeBoltShirtButton.click();
     }
     async removeJacket() {
-        await this.getRemoveJacket.click();
+        await this.removeJacketButton.click();
     }
     async removeOnesie() {
-        await this.getRemoveOnesie.click();
+        await this.removeOnesieButton.click();
     }
     async removeRedShirt() {
-        await this.getRemoveRedShirt.click();
+        await this.removeRedShirtButton.click();
     }
 
     async addAllProducts() {
-        await this.getAddBackpack.click();
-        await this.getAddBikeLight.click();
-        await this.getAddBoltShirt.click();
-        await this.getAddJacket.click();
-        await this.getAddOnesie.click();
-        await this.getAddRedShirt.click();
+        await this.addBackpack();
+        await this.addBikeLight();
+        await this.addBoltShirt();
+        await this.addJacket();
+        await this.addOnesie();
+        await this.addRedShirt();
     }
     
     async clickCart() {
-        await this.getCart.click();
+        await this.Cart.click();
     }
 
     async assertNumberItems(numberItems: string) {
-        await expect (this.getCart).toHaveText(numberItems)  
+        await expect (this.Cart).toHaveText(numberItems)  
     }
 
 

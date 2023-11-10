@@ -4,6 +4,7 @@ import { InventoryPage } from '../pages/inventory-page';
 
 const HomeURL = 'https://www.saucedemo.com/';
 const InventoryURL = 'https://www.saucedemo.com/inventory.html';
+const CartURL = 'https://www.saucedemo.com/cart.html'
 const preprodUsername = 'standard_user';
 const qaUsername = 'problem_user';
 const password = 'secret_sauce';
@@ -36,6 +37,9 @@ async function clickCart(page: Page) {
 async function assertNumberItems(page: Page, numberItems: string) {
   await inventoryPage.assertNumberItems(numberItems);
 }
+async function assertURL(page: Page, url: string) {
+  await homePage.assertURL(url);
+}
 
 test.describe('add products', () => {
   
@@ -45,12 +49,14 @@ test.describe('add products', () => {
       await addBikeLight(page);
       await assertNumberItems(page,'2')
       await clickCart(page);
+      await assertURL(page, CartURL)
     });
 
     test('add all products', async ({ page }) => {
       await addAllProducts(page);
       await assertNumberItems(page,'6')
       await clickCart(page);
+      await assertURL(page, CartURL)
     });
   
 
