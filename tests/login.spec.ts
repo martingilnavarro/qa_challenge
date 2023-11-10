@@ -14,57 +14,57 @@ test.beforeEach(async ({ page }) => {
   homePage = new HomePage(page);
 });
 
-async function clickLoginButton(page: Page) {
+async function clickLoginButton() {
   await homePage.clickLoginButton();
 }
-async function inputUsername(page: Page, username: string) {
+async function inputUsername(username: string) {
   await homePage.inputUsername(username);
 }
-async function inputPassword(page: Page, password: string) {
+async function inputPassword(password: string) {
   await homePage.inputPassword(password);
 }
-async function assertURL(page: Page, url: string) {
+async function assertURL(url: string) {
   await homePage.assertURL(url);
 }
 
 
 test.describe('log in should be allowed', () => {
   
-  test.afterEach(async ({ page }) => {
-    await inputPassword(page, password);
-    await clickLoginButton(page)
-    await assertURL(page, InventoryURL)
+  test.afterEach(async () => {
+    await inputPassword(password);
+    await clickLoginButton();
+    await assertURL(InventoryURL);
   });
 
-  test('log in - pre prod', async ({ page }) => {
-    await inputUsername(page, preprodUsername);
+  test('log in - pre prod', async () => {
+    await inputUsername(preprodUsername);
   });
 
-  test('log in - QA', async ({ page }) => {
-    await inputUsername(page, qaUsername);
+  test('log in - QA', async () => {
+    await inputUsername(qaUsername);
   });
 
-  test.skip('log in - dev', async ({ page }) => {
-    await inputUsername(page, devUsername);
+  test.skip('log in - dev', async () => {
+    await inputUsername(devUsername);
   });
 
 });
 
 test.describe('log in should not be allowed', () => {
   
-  test.afterEach(async ({ page }) => {
-    await clickLoginButton(page)
-    await assertURL(page, HomeURL)
+  test.afterEach(async () => {
+    await clickLoginButton();
+    await assertURL(HomeURL);
   });
 
-  test('log in - incorrect user name', async ({ page }) => {
-    await inputUsername(page, 'no_user');
-    await inputPassword(page, password);
+  test('log in - incorrect user name', async () => {
+    await inputUsername('no_user');
+    await inputPassword(password);
   });
 
-  test('log in - incorrect password', async ({ page }) => {
-    await inputUsername(page, preprodUsername);
-    await inputPassword(page, 'incorrect_password');
+  test('log in - incorrect password', async () => {
+    await inputUsername(preprodUsername);
+    await inputPassword('incorrect_password');
   });
 
 });

@@ -24,7 +24,6 @@ export class HomePage {
     async inputPassword(password: string) {
         await this.passwordField.fill(password);
     }
-
     async assertURL(url:string) {
         await expect(this.page).toHaveURL(url);
     }

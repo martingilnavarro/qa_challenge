@@ -3,7 +3,6 @@ import { HomePage } from '../pages/home-page';
 import { InventoryPage } from '../pages/inventory-page';
 
 const HomeURL = 'https://www.saucedemo.com/';
-const InventoryURL = 'https://www.saucedemo.com/inventory.html';
 const CartURL = 'https://www.saucedemo.com/cart.html'
 const preprodUsername = 'standard_user';
 const qaUsername = 'problem_user';
@@ -14,49 +13,58 @@ let inventoryPage: InventoryPage;
 test.beforeEach(async ({ page }) => {
   await page.goto(HomeURL);
   homePage = new HomePage(page);
-  inventoryPage = new InventoryPage(page);
   await homePage.inputUsername(preprodUsername);
   await homePage.inputPassword(password);
   await homePage.clickLoginButton();
+  inventoryPage = new InventoryPage(page);
 });
 
-async function addBackpack(page: Page) {
+async function addBackpack() {
     await inventoryPage.addBackpack();
 }
-async function addBikeLight(page: Page) {
+async function addBikeLight() {
     await inventoryPage.addBikeLight();
 }
-async function addAllProducts(page: Page) {
+async function addAllProducts() {
   await inventoryPage.addAllProducts();
 }
 
-async function clickCart(page: Page) {
+async function clickCart() {
     await inventoryPage.clickCart();
 }
 
-async function assertNumberItems(page: Page, numberItems: string) {
+async function assertNumberItems(numberItems: string) {
   await inventoryPage.assertNumberItems(numberItems);
 }
-async function assertURL(page: Page, url: string) {
+async function assertURL(url: string) {
   await homePage.assertURL(url);
 }
 
 test.describe('add products', () => {
   
     
-    test('add backpack and bike light', async ({ page }) => {
-      await addBackpack(page);
-      await addBikeLight(page);
-      await assertNumberItems(page,'2')
-      await clickCart(page);
-      await assertURL(page, CartURL)
+    test('add backpack and bike light', async () => {
+      await addBackpack();
+      await addBikeLight();
+      await assertNumberItems('2')
+      await clickCart();
+      await assertURL(CartURL)
     });
 
     test('add all products', async ({ page }) => {
-      await addAllProducts(page);
-      await assertNumberItems(page,'6')
-      await clickCart(page);
-      await assertURL(page, CartURL)
+      await addAllProducts();
+      await assertNumberItems('6')
+      await clickCart();
+      await assertURL(CartURL)
+    });
+
+    test('add and remove', async () => {
+      await addBackpack();
+      await addBikeLight();
+      await inventoryPage.removeBackpack();
+      await assertNumberItems('1')
+      await clickCart();
+      await assertURL(CartURL)
     });
   
 
