@@ -7,13 +7,14 @@ const CartURL = 'https://www.saucedemo.com/cart.html'
 const preprodUsername = 'standard_user';
 const qaUsername = 'problem_user';
 const password = 'secret_sauce';
+const username = process.env.USERNAME || preprodUsername
 let loginPage: LoginPage;
 let inventoryPage: InventoryPage;
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/');
   loginPage = new LoginPage(page);
-  await loginPage.inputUsername(preprodUsername);
+  await loginPage.inputUsername(username);
   await loginPage.inputPassword(password);
   await loginPage.clickLoginButton();
   inventoryPage = new InventoryPage(page);

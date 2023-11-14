@@ -8,9 +8,9 @@ import { CompletePage } from '../pages/complete-page';
 
 
 
-const CartURL = 'https://www.saucedemo.com/cart.html'
 const preprodUsername = 'standard_user';
 const qaUsername = 'problem_user';
+const username = process.env.USERNAME || preprodUsername
 const password = 'secret_sauce';
 let loginPage: LoginPage;
 let inventoryPage: InventoryPage;
@@ -22,7 +22,7 @@ let completePage: CompletePage;
 test.beforeEach(async ({ page }) => {
   await page.goto('/');
   loginPage = new LoginPage(page);
-  await loginPage.inputUsername(preprodUsername);
+  await loginPage.inputUsername(username);
   await loginPage.inputPassword(password);
   await loginPage.clickLoginButton();
   inventoryPage = new InventoryPage(page);
@@ -33,27 +33,6 @@ test.beforeEach(async ({ page }) => {
   confirmationPage = new ConfirmationPage(page);
   completePage = new CompletePage(page);
 });
-
-async function addBackpack() {
-    await inventoryPage.addBackpack();
-}
-async function addBikeLight() {
-    await inventoryPage.addBikeLight();
-}
-async function addAllProducts() {
-  await inventoryPage.addAllProducts();
-}
-
-async function clickCart() {
-    await inventoryPage.clickCart();
-}
-
-async function assertNumberItems(numberItems: string) {
-  await inventoryPage.assertNumberItems(numberItems);
-}
-async function assertURL(url: string) {
-  await loginPage.assertURL(url);
-}
 
 test.describe('buy products', () => {
   
