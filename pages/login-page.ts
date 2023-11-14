@@ -1,17 +1,19 @@
 import { type Locator, type Page, expect } from '@playwright/test';
 
-export class HomePage {
+export class LoginPage {
     readonly page: Page;
     readonly usernameField: Locator;
     readonly passwordField: Locator;
     readonly loginButton: Locator;
+    readonly errorMessage: Locator
     
 
     constructor(page: Page) {
         this.page = page;
-        this.usernameField = page.locator('[data-test="username"]');
-        this.passwordField = page.locator('[data-test="password"]');
-        this.loginButton = page.locator(('[data-test="login-button"]'));
+        this.usernameField = page.getByTestId('username');
+        this.passwordField = page.getByTestId('password');
+        this.loginButton = page.getByTestId('login-button');
+        this.errorMessage = page.getByTestId('error')
         
     }
 
@@ -27,6 +29,9 @@ export class HomePage {
     async assertURL(url:string) {
         await expect(this.page).toHaveURL(url);
     }
+    async checkErrorMessage() {
+        await expect(this.errorMessage).toBeVisible();
+    }
 }
 
-export default HomePage;
+export default LoginPage;

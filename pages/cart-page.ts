@@ -8,8 +8,8 @@ export class CartPage {
 
     constructor(page: Page) {
         this.page = page;
-        this.checkoutButton = page.locator(('[data-test="checkout"]'));
-        this.continueShoppingButton = page.locator(('[data-test="continue-shopping"]'));
+        this.checkoutButton = page.getByTestId(('checkout'));
+        this.continueShoppingButton = page.getByTestId(('continue-shopping'));
     }
 
     async clickCheckoutButton() {
@@ -17,6 +17,9 @@ export class CartPage {
     }
     async clickContineShoppingButton() {
         await this.checkoutButton.click();
+    }
+    async assertURL() {
+        await expect(this.page).toHaveURL('https://www.saucedemo.com/cart.html');
     }
 
 

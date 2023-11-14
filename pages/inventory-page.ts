@@ -18,18 +18,18 @@ export class InventoryPage {
 
     constructor(page: Page) {
         this.page = page;
-        this.addBackpackButton = page.locator('[data-test="add-to-cart-sauce-labs-backpack"]');
-        this.removeBackpackButton = page.locator('[data-test="remove-sauce-labs-backpack"]');
-        this.addBikeLightButton = page.locator('[data-test="add-to-cart-sauce-labs-bike-light"]');
-        this.removeBikeLightButton = page.locator('[data-test="remove-sauce-labs-bike-light"]');
-        this.addBoltShirtButton = page.locator('[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]');
-        this.removeBoltShirtButton = page.locator('[data-test="remove-sauce-labs-bolt-t-shirt"]');
-        this.addJacketButton = page.locator('[data-test="add-to-cart-sauce-labs-fleece-jacket"]');
-        this.removeJacketButton = page.locator('[data-test="remove-sauce-labs-fleece-jacket"]');
-        this.addOnesieButton = page.locator('[data-test="add-to-cart-sauce-labs-onesie"]');
-        this.removeOnesieButton = page.locator('[data-test="remove-sauce-labs-onesie"]');
-        this.addRedShirtButton= page.locator('[data-test="add-to-cart-test.allthethings()-t-shirt-(red)"]');
-        this.removeRedShirtButton = page.locator('[data-test="remove-test.allthethings()-t-shirt-(red)"]');
+        this.addBackpackButton = page.getByTestId('add-to-cart-sauce-labs-backpack');
+        this.removeBackpackButton = page.getByTestId('remove-sauce-labs-backpack');
+        this.addBikeLightButton = page.getByTestId('add-to-cart-sauce-labs-bike-light');
+        this.removeBikeLightButton = page.getByTestId('remove-sauce-labs-bike-light');
+        this.addBoltShirtButton = page.getByTestId('add-to-cart-sauce-labs-bolt-t-shirt');
+        this.removeBoltShirtButton = page.getByTestId('remove-sauce-labs-bolt-t-shirt');
+        this.addJacketButton = page.getByTestId('add-to-cart-sauce-labs-fleece-jacket');
+        this.removeJacketButton = page.getByTestId('remove-sauce-labs-fleece-jacket');
+        this.addOnesieButton = page.getByTestId('add-to-cart-sauce-labs-onesie');
+        this.removeOnesieButton = page.getByTestId('remove-sauce-labs-onesie');
+        this.addRedShirtButton= page.getByTestId('add-to-cart-test.allthethings()-t-shirt-(red)');
+        this.removeRedShirtButton = page.getByTestId('remove-test.allthethings()-t-shirt-(red)');
         this.Cart = page.locator('#shopping_cart_container a');
     }
 

@@ -1,30 +1,30 @@
 import { test, type Page } from '@playwright/test';
-import { HomePage } from '../pages/home-page';
+import { LoginPage } from '../pages/login-page';
 
-const HomeURL = 'https://www.saucedemo.com/';
+
 const InventoryURL = 'https://www.saucedemo.com/inventory.html';
 const preprodUsername = 'standard_user';
 const qaUsername = 'problem_user';
 const devUsername = 'locked_out_user';
 const password = 'secret_sauce';
-let homePage: HomePage;
+let loginPage: LoginPage;
 
 test.beforeEach(async ({ page }) => {
-  await page.goto(HomeURL);
-  homePage = new HomePage(page);
+  await page.goto('/');
+  loginPage = new LoginPage(page);
 });
 
 async function clickLoginButton() {
-  await homePage.clickLoginButton();
+  await loginPage.clickLoginButton();
 }
 async function inputUsername(username: string) {
-  await homePage.inputUsername(username);
+  await loginPage.inputUsername(username);
 }
 async function inputPassword(password: string) {
-  await homePage.inputPassword(password);
+  await loginPage.inputPassword(password);
 }
 async function assertURL(url: string) {
-  await homePage.assertURL(url);
+  await loginPage.assertURL(url);
 }
 
 
@@ -54,7 +54,7 @@ test.describe('log in should not be allowed', () => {
   
   test.afterEach(async () => {
     await clickLoginButton();
-    await assertURL(HomeURL);
+    await loginPage.checkErrorMessage();
   });
 
   test('log in - incorrect user name', async () => {

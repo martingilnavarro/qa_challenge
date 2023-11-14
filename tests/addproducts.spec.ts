@@ -1,21 +1,21 @@
 import { test, type Page } from '@playwright/test';
-import { HomePage } from '../pages/home-page';
+import { LoginPage } from '../pages/login-page';
 import { InventoryPage } from '../pages/inventory-page';
 
-const HomeURL = 'https://www.saucedemo.com/';
+
 const CartURL = 'https://www.saucedemo.com/cart.html'
 const preprodUsername = 'standard_user';
 const qaUsername = 'problem_user';
 const password = 'secret_sauce';
-let homePage: HomePage;
+let loginPage: LoginPage;
 let inventoryPage: InventoryPage;
 
 test.beforeEach(async ({ page }) => {
-  await page.goto(HomeURL);
-  homePage = new HomePage(page);
-  await homePage.inputUsername(preprodUsername);
-  await homePage.inputPassword(password);
-  await homePage.clickLoginButton();
+  await page.goto('/');
+  loginPage = new LoginPage(page);
+  await loginPage.inputUsername(preprodUsername);
+  await loginPage.inputPassword(password);
+  await loginPage.clickLoginButton();
   inventoryPage = new InventoryPage(page);
 });
 
@@ -37,7 +37,7 @@ async function assertNumberItems(numberItems: string) {
   await inventoryPage.assertNumberItems(numberItems);
 }
 async function assertURL(url: string) {
-  await homePage.assertURL(url);
+  await loginPage.assertURL(url);
 }
 
 test.describe('add products', () => {
