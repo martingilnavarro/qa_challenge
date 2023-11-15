@@ -1,4 +1,4 @@
-import { test, type Page } from '@playwright/test';
+import { test } from '@playwright/test';
 import { LoginPage } from '../pages/login-page';
 import { InventoryPage } from '../pages/inventory-page';
 import { CartPage } from '../pages/cart-page';
@@ -6,12 +6,9 @@ import { CheckoutPage } from '../pages/checkout-page';
 import { ConfirmationPage } from '../pages/confirmation-page';
 import { CompletePage } from '../pages/complete-page';
 
+const username = process.env.USERNAME || 'standard_user'
+const password = process.env.PASSWORD || 'secret_sauce'
 
-
-const preprodUsername = 'standard_user';
-const qaUsername = 'problem_user';
-const username = process.env.USERNAME || preprodUsername
-const password = 'secret_sauce';
 let loginPage: LoginPage;
 let inventoryPage: InventoryPage;
 let cartPage: CartPage;
@@ -35,8 +32,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe('buy products', () => {
-  
-    
+   
     test('buy products', async () => {
       await cartPage.clickCheckoutButton();
       await checkoutPage.inputFirstName('first name');
@@ -45,11 +41,8 @@ test.describe('buy products', () => {
       await checkoutPage.clickContinueButton();
       await confirmationPage.clickFinishButton();
       await completePage.clickBackHomeButton();
-
     });
 
-
-  
   });
 
 

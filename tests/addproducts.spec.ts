@@ -1,15 +1,16 @@
-import { test, type Page } from '@playwright/test';
+import { test } from '@playwright/test';
 import { LoginPage } from '../pages/login-page';
 import { InventoryPage } from '../pages/inventory-page';
 
 
 const CartURL = 'https://www.saucedemo.com/cart.html'
-const preprodUsername = 'standard_user';
-const qaUsername = 'problem_user';
-const password = 'secret_sauce';
-const username = process.env.USERNAME || preprodUsername
+
+const username = process.env.USERNAME || 'standard_user'
+const password = process.env.PASSWORD || 'secret_sauce'
+
 let loginPage: LoginPage;
 let inventoryPage: InventoryPage;
+
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/');
@@ -29,7 +30,6 @@ async function addBikeLight() {
 async function addAllProducts() {
   await inventoryPage.addAllProducts();
 }
-
 async function clickCart() {
     await inventoryPage.clickCart();
 }
