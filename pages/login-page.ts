@@ -13,22 +13,19 @@ export class LoginPage {
         this.usernameField = page.getByTestId('username');
         this.passwordField = page.getByTestId('password');
         this.loginButton = page.getByTestId('login-button');
-        this.errorMessage = page.getByTestId('error')
-        
+        this.errorMessage = page.getByTestId('error')      
     }
 
-    async clickLoginButton() {
+    async login(username: string, password: string) {   
+        await this.usernameField.fill(username);
+        await this.passwordField.fill(password);
         await this.loginButton.click();
     }
-    async inputUsername(username: string) {
-        await this.usernameField.fill(username);
-    }
-    async inputPassword(password: string) {
-        await this.passwordField.fill(password);
-    }
+
     async assertURL(url:string) {
         await expect(this.page).toHaveURL(url);
     }
+    
     async checkErrorMessage() {
         await expect(this.errorMessage).toBeVisible();
     }

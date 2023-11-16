@@ -12,44 +12,32 @@ test.beforeEach(async ({ page }) => {
   loginPage = new LoginPage(page);
 });
 
-async function clickLoginButton() {
-  await loginPage.clickLoginButton();
-}
-async function inputUsername(username: string) {
-  await loginPage.inputUsername(username);
-}
-async function inputPassword(password: string) {
-  await loginPage.inputPassword(password);
-}
-
 
 test.describe('log in should be allowed', () => {
 
   test('log in OK', async () => {
-    await inputUsername(username);
-    await inputPassword(password);
-    await clickLoginButton();
+    //Act
+    await loginPage.login(username, password)
+    //Assert
     await loginPage.assertURL(InventoryURL);
   });
-
 });
 
 test.describe('log in should not be allowed', () => {
   
   test('log in - incorrect user name', async () => {
-    await inputUsername('no_user');
-    await inputPassword(password);
-    await clickLoginButton();
+    //Act
+    await loginPage.login('no_user', password);
+    //Assert
     await loginPage.checkErrorMessage();
   });
 
   test('log in - incorrect password', async () => {
-    await inputUsername(username);
-    await inputPassword('incorrect_password');
-    await clickLoginButton();
+    //Act
+    await loginPage.login(username, 'incorrect_password');
+    //Assert
     await loginPage.checkErrorMessage();
   });
-
 });
 
 

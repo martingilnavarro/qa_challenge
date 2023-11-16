@@ -19,9 +19,7 @@ let completePage: CompletePage;
 test.beforeEach(async ({ page }) => {
   await page.goto('/');
   loginPage = new LoginPage(page);
-  await loginPage.inputUsername(username);
-  await loginPage.inputPassword(password);
-  await loginPage.clickLoginButton();
+  await loginPage.login(username, password);
   inventoryPage = new InventoryPage(page);
   await inventoryPage.addAllProducts();
   await inventoryPage.clickCart();
