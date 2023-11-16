@@ -4,10 +4,8 @@ import { InventoryPage } from '../pages/inventory-page';
 
 
 const CartURL = 'https://www.saucedemo.com/cart.html'
-
 const username = process.env.USERNAME || 'standard_user'
 const password = process.env.PASSWORD || 'secret_sauce'
-
 let loginPage: LoginPage;
 let inventoryPage: InventoryPage;
 
@@ -19,51 +17,38 @@ test.beforeEach(async ({ page }) => {
   inventoryPage = new InventoryPage(page);
 });
 
-async function addBackpack() {
-    await inventoryPage.addBackpack();
-}
-async function addBikeLight() {
-    await inventoryPage.addBikeLight();
-}
-async function addAllProducts() {
-  await inventoryPage.addAllProducts();
-}
-async function clickCart() {
-    await inventoryPage.clickCart();
-}
+test.afterEach(async ({ page }) => {
+  //Act
+  await inventoryPage.clickCart();
+  //Assert
+  await loginPage.assertURL(CartURL);
+});
 
-async function assertNumberItems(numberItems: string) {
-  await inventoryPage.assertNumberItems(numberItems);
-}
-async function assertURL(url: string) {
-  await loginPage.assertURL(url);
-}
 
 test.describe('add products', () => {
-  
-    
+     
     test('add backpack and bike light', async () => {
-      await addBackpack();
-      await addBikeLight();
-      await assertNumberItems('2')
-      await clickCart();
-      await assertURL(CartURL)
+      //Act
+      await inventoryPage.addBackpack();
+      await inventoryPage.addBikeLight();
+      //Assert
+      await inventoryPage.assertNumberItems('2')
     });
 
     test('add all products', async ({ page }) => {
-      await addAllProducts();
-      await assertNumberItems('6')
-      await clickCart();
-      await assertURL(CartURL)
+      //Act
+      await inventoryPage.addAllProducts();
+      //Assert
+      await inventoryPage.assertNumberItems('6')
     });
 
     test('add and remove', async () => {
-      await addBackpack();
-      await addBikeLight();
+      //Act
+      await inventoryPage.addBackpack();
+      await inventoryPage.addBikeLight();
       await inventoryPage.removeBackpack();
-      await assertNumberItems('1')
-      await clickCart();
-      await assertURL(CartURL)
+      //Assert
+      await inventoryPage.assertNumberItems('1')
     });
   
 
