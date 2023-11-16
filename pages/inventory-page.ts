@@ -14,7 +14,9 @@ export class InventoryPage {
     readonly removeOnesieButton: Locator;
     readonly addRedShirtButton: Locator;
     readonly removeRedShirtButton: Locator;
-    readonly Cart: Locator;
+    readonly cart: Locator;
+    readonly menuButton: Locator;
+    readonly resetButton: Locator
 
     constructor(page: Page) {
         this.page = page;
@@ -30,7 +32,9 @@ export class InventoryPage {
         this.removeOnesieButton = page.getByTestId('remove-sauce-labs-onesie');
         this.addRedShirtButton= page.getByTestId('add-to-cart-test.allthethings()-t-shirt-(red)');
         this.removeRedShirtButton = page.getByTestId('remove-test.allthethings()-t-shirt-(red)');
-        this.Cart = page.locator('#shopping_cart_container a');
+        this.cart = page.locator('#shopping_cart_container a');
+        this.menuButton = page.getByRole('button', { name: 'Open Menu' })
+        this.resetButton = page.getByRole('link', { name: 'Reset App State' })
     }
 
     async addBackpack() {
@@ -95,7 +99,18 @@ export class InventoryPage {
     async addBikeLightEnabled() {
         await this.addBikeLightButton.isEnabled();
     }
-
+    async addBoltShirtEnabled() {
+        await this.addBoltShirtButton.isEnabled();
+    }
+    async addJacketEnabled() {
+        await this.addJacketButton.isEnabled();
+    }
+    async addOnesieEnabled() {
+        await this.removeOnesieButton.isEnabled();
+    }
+    async addRedShirtEnabled() {
+        await this.removeRedShirtButton.isEnabled();
+    }
 
     async addAllProducts() {
         await this.addBackpack();
@@ -107,15 +122,20 @@ export class InventoryPage {
     }
     
     async clickCart() {
-        await this.Cart.click();
+        await this.cart.click();
     }
 
     async assertNumberItems(numberItems: string) {
-        await expect (this.Cart).toHaveText(numberItems)  
+        await expect (this.cart).toHaveText(numberItems)  
     }
 
     async assertURL() {
         await expect(this.page).toHaveURL('https://www.saucedemo.com/inventory.html');
+    }
+
+    async resetAppState() {
+        await this.menuButton.click();
+        await this.resetButton.click();
     }
 
 

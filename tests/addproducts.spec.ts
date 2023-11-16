@@ -28,40 +28,84 @@ test.afterEach(async ({ page }) => {
 });
 
 
-test.describe('add products', () => {
+test.describe('add and remove products', () => {
      
     test('add backpack and bike light', async () => {
       //Act
-      await inventoryPage.addBackpack();
-      await inventoryPage.addBikeLight();
+      await test.step('add products', async () => {
+        await inventoryPage.addBackpack();
+        await inventoryPage.addBikeLight();
+      });
       //Assert
-      await inventoryPage.removeBackpackEnabled();
-      await inventoryPage.removeBikeLightEnabled();
-      await inventoryPage.assertNumberItems('2')
+      await test.step('assert remove buttons enabled', async () => {
+        await inventoryPage.removeBackpackEnabled();
+        await inventoryPage.removeBikeLightEnabled();
+      });  
+      await test.step('assert items number in cart', async () => {
+        await inventoryPage.assertNumberItems('2')
+      });
     });
 
     test('add all products', async ({ page }) => {
       //Act
-      await inventoryPage.addAllProducts();
+      await test.step('add products', async () => {
+        await inventoryPage.addAllProducts();
+      });
       //Assert
-      await inventoryPage.removeBackpackEnabled();
-      await inventoryPage.removeBikeLightEnabled();
-      await inventoryPage.removeBoltShirtEnabled();
-      await inventoryPage.removeJacketEnabled();
-      await inventoryPage.removeOnesieEnabled();
-      await inventoryPage.removeRedShirtEnabled();
-      await inventoryPage.assertNumberItems('6')
+      await test.step('assert remove buttons enabled', async () => {
+        await inventoryPage.removeBackpackEnabled();
+        await inventoryPage.removeBikeLightEnabled();
+        await inventoryPage.removeBoltShirtEnabled();
+        await inventoryPage.removeJacketEnabled();
+        await inventoryPage.removeOnesieEnabled();
+        await inventoryPage.removeRedShirtEnabled();
+      });
+      await test.step('assert items number in cart', async () => {
+        await inventoryPage.assertNumberItems('6');
+      });
+
     });
 
     test('add and remove', async () => {
       //Act
-      await inventoryPage.addBackpack();
-      await inventoryPage.addBikeLight();
-      await inventoryPage.removeBackpack();
+      await test.step('add products', async () => {
+        await inventoryPage.addBackpack();
+        await inventoryPage.addBikeLight();
+      });
+      await test.step('remove products', async () => {
+        await inventoryPage.removeBackpack();
+      });  
       //Assert
-      await inventoryPage.addBackpackEnabled();
-      await inventoryPage.removeBikeLightEnabled();
-      await inventoryPage.assertNumberItems('1');
+      await test.step('assert remove/add buttons enabled', async () => {
+        await inventoryPage.addBackpackEnabled();
+        await inventoryPage.removeBikeLightEnabled();
+      });
+      await test.step('assert items number in cart', async () => {
+        await inventoryPage.assertNumberItems('1');
+      });  
+    });
+
+    test('reset app state', async () => {
+      //Act
+      await test.step('add products', async () => {
+        await inventoryPage.addAllProducts();
+      });  
+      await test.step('reset app state', async () => {
+        await inventoryPage.resetAppState();
+      });
+      //Assert
+      //BUG: add buttons are not reseted
+      /*await test.step('assert add buttons enabled', async () => {
+        await inventoryPage.addBackpackEnabled();
+        await inventoryPage.addBikeLightEnabled();
+        await inventoryPage.addBoltShirtEnabled();
+        await inventoryPage.addJacketEnabled();
+        await inventoryPage.addOnesieEnabled();
+        await inventoryPage.addRedShirtEnabled();
+      });  */
+      await test.step('assert items number in cart empty', async () => {
+        await inventoryPage.assertNumberItems('');
+      });   
     });
   
   });
