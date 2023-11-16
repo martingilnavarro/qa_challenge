@@ -71,6 +71,32 @@ export class InventoryPage {
         await this.removeRedShirtButton.click();
     }
 
+    async removeBackpackEnabled() {
+        await this.removeBackpackButton.isEnabled();
+    }
+    async removeBikeLightEnabled() {
+        await this.removeBikeLightButton.isEnabled();
+    }
+    async removeBoltShirtEnabled() {
+        await this.removeBoltShirtButton.isEnabled();
+    }
+    async removeJacketEnabled() {
+        await this.removeJacketButton.isEnabled();
+    }
+    async removeOnesieEnabled() {
+        await this.removeOnesieButton.isEnabled();
+    }
+    async removeRedShirtEnabled() {
+        await this.removeRedShirtButton.isEnabled();
+    }
+    async addBackpackEnabled() {
+        await this.addBackpackButton.isEnabled();
+    }
+    async addBikeLightEnabled() {
+        await this.addBikeLightButton.isEnabled();
+    }
+
+
     async addAllProducts() {
         await this.addBackpack();
         await this.addBikeLight();
@@ -86,6 +112,10 @@ export class InventoryPage {
 
     async assertNumberItems(numberItems: string) {
         await expect (this.Cart).toHaveText(numberItems)  
+    }
+
+    async assertURL() {
+        await expect(this.page).toHaveURL('https://www.saucedemo.com/inventory.html');
     }
 
 

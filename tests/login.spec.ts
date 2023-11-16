@@ -1,15 +1,17 @@
 import { test } from '@playwright/test';
 import { LoginPage } from '../pages/login-page';
+import { InventoryPage } from '../pages/inventory-page';
 
-
-const InventoryURL = 'https://www.saucedemo.com/inventory.html';
 let loginPage: LoginPage;
+let inventoryPage: InventoryPage;
 const username = process.env.USERNAME || 'standard_user'
 const password = process.env.PASSWORD || 'secret_sauce'
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('/');
   loginPage = new LoginPage(page);
+  inventoryPage = new InventoryPage(page);
+  
+  await page.goto('/');
 });
 
 
@@ -19,7 +21,7 @@ test.describe('log in should be allowed', () => {
     //Act
     await loginPage.login(username, password)
     //Assert
-    await loginPage.assertURL(InventoryURL);
+    await inventoryPage.assertURL();
   });
 });
 

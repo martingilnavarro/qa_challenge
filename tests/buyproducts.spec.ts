@@ -17,21 +17,23 @@ let confirmationPage: ConfirmationPage;
 let completePage: CompletePage;
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('/');
   loginPage = new LoginPage(page);
-  await loginPage.login(username, password);
   inventoryPage = new InventoryPage(page);
-  await inventoryPage.addAllProducts();
-  await inventoryPage.clickCart();
   cartPage = new CartPage(page);
   checkoutPage= new CheckoutPage(page);
   confirmationPage = new ConfirmationPage(page);
   completePage = new CompletePage(page);
+
+  await page.goto('/');
+  await loginPage.login(username, password);
+  await inventoryPage.addAllProducts();
+  await inventoryPage.clickCart();
 });
 
 test.describe('buy products', () => {
    
     test('buy products', async () => {
+      //Act
       await cartPage.clickCheckoutButton();
       await checkoutPage.inputFirstName('first name');
       await checkoutPage.inputLastName('last name');
