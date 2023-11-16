@@ -33,7 +33,9 @@ export class CheckoutPage {
     async checkErrorMessage() {
         await expect(this.errorMessage).toBeVisible();
     }
-
+    async assertURL() {
+        await expect(this.page).toHaveURL('https://www.saucedemo.com/checkout-step-one.html');
+    }
 
 }
 

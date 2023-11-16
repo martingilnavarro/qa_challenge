@@ -12,8 +12,7 @@ export class CompletePage {
     async clickBackHomeButton() {
         await this.backHomeButton.click();
     }
-
-
+    
 }
 
 export default CompletePage;

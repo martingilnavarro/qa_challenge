@@ -12,6 +12,9 @@ export class ConfirmationPage {
     async clickFinishButton() {
         await this.finishButton.click();
     }
+    async assertURL() {
+        await expect(this.page).toHaveURL('https://www.saucedemo.com/checkout-step-two.html');
+    }
 
 
 }

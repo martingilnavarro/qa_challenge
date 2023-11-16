@@ -8,6 +8,10 @@ import { CompletePage } from '../pages/complete-page';
 
 const username = process.env.USERNAME || 'standard_user'
 const password = process.env.PASSWORD || 'secret_sauce'
+const firstName = 'first name';
+const lastName = 'last name';
+const zipCode = 'zip code';
+
 
 let loginPage: LoginPage;
 let inventoryPage: InventoryPage;
@@ -23,24 +27,37 @@ test.beforeEach(async ({ page }) => {
   checkoutPage= new CheckoutPage(page);
   confirmationPage = new ConfirmationPage(page);
   completePage = new CompletePage(page);
-
-  await page.goto('/');
-  await loginPage.login(username, password);
-  await inventoryPage.addAllProducts();
-  await inventoryPage.clickCart();
+  await test.step('log in', async () => {
+    await page.goto('/');
+    await loginPage.login(username, password);
+  });
+  await test.step('add three products', async () => {
+    await inventoryPage.addBackpack();
+    await inventoryPage.addBikeLight();
+    await inventoryPage.addBoltShirt();
+  });
+  await test.step('click cart', async () => {
+    await inventoryPage.clickCart();
+  });
+  await test.step('click checkout', async () => {
+    await cartPage.clickCheckoutButton();
+  });
+  await test.step('fill checkout form', async () => {
+    await checkoutPage.inputFirstName(firstName);
+    await checkoutPage.inputLastName(lastName);
+    await checkoutPage.inputZipCode(zipCode);
+    await checkoutPage.clickContinueButton();
+});
 });
 
-test.describe('buy products', () => {
+test.describe('confirm purchase', () => {
    
-    test('buy products', async () => {
+    test('confirm purchase', async () => {
       //Act
-      await cartPage.clickCheckoutButton();
-      await checkoutPage.inputFirstName('first name');
-      await checkoutPage.inputLastName('last name');
-      await checkoutPage.inputZipCode('zip code');
-      await checkoutPage.clickContinueButton();
       await confirmationPage.clickFinishButton();
       await completePage.clickBackHomeButton();
+      //Assert
+      await inventoryPage.assertURL();
     });
 
   });

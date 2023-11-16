@@ -15,9 +15,10 @@ test.beforeEach(async ({ page }) => {
   loginPage = new LoginPage(page);
   inventoryPage = new InventoryPage(page);
   cartPage = new CartPage(page);
-
-  await page.goto('/');
-  await loginPage.login(username, password);
+  await test.step('log in', async () => {
+    await page.goto('/');
+    await loginPage.login(username, password);
+  });
 });
 
 test.afterEach(async ({ page }) => {

@@ -7,9 +7,8 @@ import path from 'path';
  * https://github.com/motdotla/dotenv
  */
 
-let path1 = path.resolve(__dirname, '.env.username')
 dotenv.config({ path: path.resolve(__dirname, '.env.username') });
-console.log(path1)
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
