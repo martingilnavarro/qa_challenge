@@ -18,6 +18,7 @@ test.beforeEach(async ({ page }) => {
 test.describe('log in should be allowed', () => {
 
   test('log in OK', async () => {
+  //QAB-T1
     //Act
     await loginPage.login(username, password)
     //Assert
@@ -28,6 +29,7 @@ test.describe('log in should be allowed', () => {
 test.describe('log in should not be allowed', () => {
   
   test('log in - incorrect user name', async () => {
+  //QAB-T6
     //Act
     await loginPage.login('no_user', password);
     //Assert
@@ -35,6 +37,7 @@ test.describe('log in should not be allowed', () => {
   });
 
   test('log in - incorrect password', async () => {
+  //QAB-T2
     //Act
     await loginPage.login(username, 'incorrect_password');
     //Assert

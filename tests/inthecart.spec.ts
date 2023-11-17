@@ -47,6 +47,7 @@ test.describe('inside the cart', () => {
     });
 
     test('checkout', async () => {
+    //QAB-T24
       //Act
       await test.step('click checkout button', async () => {
         await cartPage.clickCheckoutButton();
@@ -59,6 +60,7 @@ test.describe('inside the cart', () => {
     });
 
     test('continue shopping', async () => {
+    //QAB-T25
       //Act
       await test.step('click continue shopping button', async () => {
         await cartPage.clickContinueShoppingButton();

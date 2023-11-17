@@ -48,6 +48,7 @@ test.describe('add and remove products', () => {
     });
 
     test('add all products', async ({ page }) => {
+    //QAB-T13
       //Act
       await test.step('add products', async () => {
         await inventoryPage.addAllProducts();
@@ -87,6 +88,7 @@ test.describe('add and remove products', () => {
     });
 
     test('reset app state', async () => {
+    //QAB-T22
       //Act
       await test.step('add products', async () => {
         await inventoryPage.addAllProducts();

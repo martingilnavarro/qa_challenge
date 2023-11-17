@@ -44,6 +44,7 @@ test.beforeEach(async ({ page }) => {
   test.describe('form completed', () => {
 
     test('form OK', async () => {
+    //QAB-T26
       //Act
       await checkoutPage.inputFirstName(firstName);
       await checkoutPage.inputLastName(lastName);

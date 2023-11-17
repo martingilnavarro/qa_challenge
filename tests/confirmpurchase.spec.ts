@@ -53,6 +53,7 @@ test.beforeEach(async ({ page }) => {
 test.describe('confirm purchase', () => {
    
     test('confirm purchase', async () => {
+    //QAB-T27
       //Act
       await confirmationPage.clickFinishButton();
       await completePage.clickBackHomeButton();
